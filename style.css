@@ -1,3 +1,6 @@
+/* =======================
+   VARIABLES
+   ======================= */
 :root {
   --rojo-beetle: #C1272D;
   --crema-retro: #F8E9D2;
@@ -8,19 +11,45 @@
   --fuente-texto: 'Lora', serif;
 }
 
+/* Tipografía base fluida */
+html {
+  font-size: clamp(14px, 1.2vw, 18px);
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: var(--fuente-texto);
   background-color: var(--crema-retro);
   color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* HEADER */
+/* =======================
+   EFECTO FADE-IN DESDE ARRIBA
+   ======================= */
+.fade-in {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInUp 1s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =======================
+   HEADER y NAVEGACIÓN
+   ======================= */
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
   background-color: var(--crema-retro);
   border-bottom: 3px solid var(--rojo-beetle);
   position: sticky;
@@ -28,60 +57,123 @@ header {
   z-index: 100;
 }
 
-.logo {
-  font-family: var(--fuente-titulo);
-  font-size: 1.2rem;
-  color: var(--rojo-beetle);
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  position: relative;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--fuente-titulo);
+  color: var(--rojo-beetle);
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .icono-header {
-  width: 100px;
-  height: 75px;
+  height: 1.1em;
+  width: auto;
+  display: block;
 }
 
-nav a {
-  margin: 0 0.8rem;
+.logo-text {
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+
+/* NAV - desktop */
+.main-nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.main-nav a {
   text-decoration: none;
   color: #333;
-  font-weight: bold;
-  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0.4rem 0.6rem;
+  transition: color 0.18s ease;
 }
 
-nav a:hover {
+.main-nav a:hover {
   color: var(--rojo-beetle);
 }
 
-/* CHECKERBOARD */
-.checkerboard {
-  background-image: url('img/checkerboard.png');
-  background-repeat: repeat-x;
-  background-size: contain;
-  height: 25px;
+/* Hamburger button */
+.menu-btn {
+  display: none;
+  width: 42px;
+  height: 36px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
-/* HERO */
+.menu-btn span {
+  display: block;
+  height: 3px;
+  width: 25px;
+  background: #333;
+  border-radius: 3px;
+  transition: all 0.25s ease;
+}
+
+/* Animation for hamburger */
+.menu-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+.menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-btn.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* =======================
+   HERO
+   ======================= */
 .hero {
   text-align: center;
-  padding: 6rem 1rem;
+  padding: clamp(3rem, 6vw, 8rem) 1rem;
 }
 
-.hero h2 {
+.hero-content h2 {
   font-family: var(--fuente-titulo);
-  font-size: 4rem;
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
   color: var(--rojo-beetle);
-  margin-bottom: 2rem;
+  margin: 0 0 1.25rem 0;
+  line-height: 1;
 }
 
 .hero img {
-  max-width: 800px;
+  max-width: 1100px;
   width: 95%;
   border-radius: 20px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+  display: block;
+  margin: 1.25rem auto 0 auto;
+  transition: transform 0.3s ease;
 }
 
+.hero img:hover {
+  transform: scale(1.02);
+}
+
+/* Botones */
 .btn {
   display: inline-block;
   background-color: var(--rojo-beetle);
@@ -89,27 +181,44 @@ nav a:hover {
   padding: 12px 35px;
   margin-top: 25px;
   border-radius: 10px;
-  font-weight: bold;
+  font-weight: 700;
   text-decoration: none;
-  transition: 0.3s;
+  transition: background-color .22s ease, transform .12s ease;
 }
 
 .btn:hover {
   background-color: var(--mostaza);
   color: #000;
+  transform: translateY(-2px);
 }
 
-/* DOS COLUMNAS */
+/* =======================
+   CHECKERBOARD
+   ======================= */
+.checkerboard {
+  background-image: url('img/checkerboard.png');
+  background-repeat: repeat-x;
+  background-size: auto 25px;
+  height: 25px;
+}
+
+/* =======================
+   DOS COLUMNAS (Detalles / Ubicación)
+   ======================= */
 .dos-columnas {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 300px;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .columna {
-  padding: 3rem;
+  padding: clamp(1.2rem, 2.5vw, 3rem);
 }
 
+/* Título columna */
 .titulo-columna {
   background-color: var(--rojo-beetle);
   color: var(--crema-retro);
@@ -121,74 +230,102 @@ nav a:hover {
 
 .titulo-columna h2 {
   font-family: var(--fuente-titulo);
-  font-size: 2.2rem;
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  margin: 0;
 }
 
+/* Info columna */
 .info-columna {
   background-color: var(--crema-retro);
+  color: #333;
 }
 
-/* UBICACIÓN */
+/* Ubicación */
 .ubicacion .titulo-columna {
   background-color: var(--mostaza);
-  color: var(--rojo-beetle);
+  color: var(--crema-retro);
+}
+
+/* Subdirección */
+.subdireccion {
+  font-style: normal;
+  color: #444;
+  margin: 0.15rem 0 1rem 0;
+  font-weight: 600;
+}
+
+/* =======================
+   MAPA Y BOTONES IGUALES
+   ======================= */
+.map-container iframe {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+  border: none;
 }
 
 .btn-group {
-  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  align-items: center;
 }
 
-.btn-group .btn {
-  margin-right: 0.5rem;
+.btn-equal {
+  flex: 1 1 0;
+  text-align: center;
+  display: inline-block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background-color: var(--rojo-beetle);
+  color: var(--crema-retro);
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s ease;
 }
 
-/* MAPA */
-.mapa {
-  margin-top: 1.5rem;
+.btn-equal:hover {
+  background-color: var(--mostaza);
+  color: #000;
 }
 
-.mapa iframe {
-  width: 100%;
-  height: 250px;
-  border: none;
-  border-radius: 10px;
-}
-
-/* CONFIRMACIÓN */
+/* =======================
+   CONFIRMACIÓN
+   ======================= */
 .confirmacion {
   text-align: center;
-  padding: 5rem 2rem;
+  padding: clamp(2rem, 4vw, 5rem) 1rem;
   background-color: var(--azul-pastel);
 }
 
 .confirmacion h2 {
   font-family: var(--fuente-titulo);
   color: var(--rojo-beetle);
-  font-size: 2.5rem;
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+  margin-bottom: .75rem;
 }
 
-.confirmacion p {
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin: 1rem auto;
-}
-
-/* GALERÍA */
+/* =======================
+   GALERÍA
+   ======================= */
 .galeria {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: clamp(2rem, 4vw, 4rem) 1rem;
 }
 
 .galeria h2 {
   font-family: var(--fuente-titulo);
   color: var(--rojo-beetle);
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
 }
 
 .galeria .grid {
+  max-width: 1200px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.85rem;
+  justify-items: center;
 }
 
 .galeria img {
@@ -196,37 +333,114 @@ nav a:hover {
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 10px;
-  transition: transform 0.3s ease;
+  transition: transform 0.25s ease;
 }
 
 .galeria img:hover {
-  transform: scale(1.5);
+  transform: scale(1.05);
 }
 
-/* CIERRE */
+/* =======================
+   CIERRE & FOOTER
+   ======================= */
 .cierre {
   text-align: center;
   background-color: var(--mostaza);
-  padding: 3rem 2rem;
+  padding: clamp(1.25rem, 3vw, 3rem);
 }
 
 .logo-final {
-  width: 80%;
-  max-width: 500px;
-  margin-bottom: 1rem;
+  width: 50%;
+  max-width: 200px;
+  display: block;
+  margin: 0 auto 1rem auto;
 }
 
 .cierre p {
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 1.4vw, 1.5rem);
   font-weight: 600;
   color: var(--rojo-beetle);
 }
 
-/* FOOTER */
 footer {
   background-color: var(--rojo-beetle);
   color: var(--crema-retro);
   text-align: center;
-  padding: 2rem;
-  font-size: 0.9rem;
+  padding: 1.25rem;
+  font-size: 0.95rem;
+}
+
+/* =======================
+   RESPONSIVE
+   ======================= */
+@media (max-width: 1200px) {
+  .galeria .grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .galeria .grid { grid-template-columns: repeat(3, 1fr); }
+  .dos-columnas { grid-template-columns: 1fr; }
+  .titulo-columna { order: -1; }
+  
+  /* Aumentar títulos en responsive 80% */
+  .titulo-columna h2 {
+    font-size: clamp(2.52rem, 4.5vw, 3.96rem);
+  }
+  
+  .menu-btn { display: flex; }
+}
+
+@media (max-width: 600px) {
+  .galeria .grid { grid-template-columns: repeat(2, 1fr); }
+  .hero img { width: 100%; border-radius: 12px; }
+
+  /* Menú móvil con nuevo estilo */
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 1rem;
+    background: var(--gris-metalico);
+    box-shadow: 0 6px 20px rgba(154, 7, 7, 0.12);
+    border-radius: 10px;
+    padding: 0.6rem;
+    flex-direction: column;
+  }
+
+  .main-nav.show {
+    display: flex;
+  }
+
+  .main-nav a {
+    padding: 0.6rem 1rem;
+    display: block;
+    color: var(--rojo-beetle);
+  }
+  
+  .main-nav a:hover {
+    color: var(--mostaza);
+  }
+}
+
+@media (max-width: 420px) {
+  .galeria .grid { grid-template-columns: 1fr; }
+  
+  /* Mantener icono visible y del mismo tamaño que "Ruta 70" */
+  .logo {
+    gap: 8.5rem;
+  }
+  
+  .icono-header {
+    height: 2rem;
+    width: auto;
+  }
+  
+  .logo-text {
+    font-size: 1.1rem;
+  }
+}
+
+a:focus {
+  outline: 3px solid var(--mostaza);
+  outline-offset: 3px;
 }
