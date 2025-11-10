@@ -1,6 +1,4 @@
-/* =======================
-   VARIABLES
-   ======================= */
+
 :root {
   --rojo-beetle: #C1272D;
   --crema-retro: #F8E9D2;
@@ -80,7 +78,7 @@ header {
 }
 
 .icono-header {
-  height: 1.1em;
+  height: 4em;
   width: auto;
   display: block;
 }
@@ -427,7 +425,7 @@ footer {
   
   /* Mantener icono visible y del mismo tamaño que "Ruta 70" */
   .logo {
-    gap: 8.5rem;
+    gap: 5rem;
   }
   
   .icono-header {
